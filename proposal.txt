@@ -1,0 +1,108 @@
+Midterm Project Proposal : Character Reference Sheet Builder
+
+Solves problems for writers!
+
+	- keep details about characters consistent
+		+ details such as eye color, hair color, birthday, etc are easy
+		  to forget while writing longer stories/novels
+
+	- develop characters and plot
+		+ built in templates encourage writers to think in more depth 
+		  about their characters by asking probing questions
+			- what is his/her favorite food and why?
+			- what teacher had an impact on his life?
+			- how does he interact with strangers?
+
+	- act as easy reference to give to others
+		+ roleplayers 
+			- others in a role-play should have easy access to important details
+		+ commissioners
+			- if you commission someone to write a story about your character, a ref sheet
+			  acts as an easy way to communicate important details
+
+Functionality
+
+	Nested Organization
+	
+		Universe or Story
+			Character
+				Ref Sheet - each character can have multiple
+
+		Ref Sheets
+			Built In ———— Custom ——— Revised
+	
+
+	Creating a new ref sheet
+
+		User starts with some set number of fields (perhaps five) and can add, delete,
+		and edit them from there
+	
+
+	Reference Sheet Templates
+		
+		Basic Info 
+			birthday, location, age, etc
+
+		Physical characteristics
+			hair, eye color, tattoos, scars, etc
+			 
+		Relationships
+			parents, siblings, family, friends, lovers, past friends and lovers, coworkers, bosses
+
+
+	Edit-in-place
+		
+		User can delete or add a new field at any point in the list of fields
+		
+		User can change the size of any field (small, medium, large)
+
+
+	Saving - 
+		
+		A reference sheet can be saved at any point as either…
+			1. a template to use in the future
+			2. a filled-out sheet for a specific character
+		
+		
+	
+	Technologies used
+		
+		Bootstrap (but it’ll look way cooler because I love designing!)
+		
+		Interactivity
+
+			DOM manipulation
+			Adding/removing elements
+			Click event handling
+			Form building
+		
+		Object-Oriented Programming
+			
+			Each field in a template will be an object in an array, whether it is a template
+			or a full sheet.
+
+			var basicInfoArray = [ 
+
+				{
+					fieldName    : “fieldName”,
+					fieldContent : “fieldContent”,
+					fieldSize    : “size” - small, medium, or large
+				}
+
+				]
+			
+			Each character will contain a list of arrays (completed forms) and each 
+			world/story will contain a list of characters.
+
+			When a new sheet is created for a character,
+			that character’s name is used as the prototype for each object in the sheet.
+	
+			Similarly, the name of the world/novel will be the prototype for each sheet
+			that takes place in that world.
+
+
+
+	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	ADD COMMENTS FROM TEACHERS BELOW
+	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=			
+			
