@@ -12,11 +12,13 @@
 			<h1>Person Maker</h1>
 			<form>
 				Username:
-				<input type="text" name="username" value="Username...">
+				<input ng-model="loginUsername" type="text" name="username" placeholder="Username...">
 				Password:
-				<input type="text" name="password" value="Password...">
+				<input ng-model="loginPassword" type="text" name="password" placeholder="Password...">
 				<button ng-click="login()" type="button">Log In</button>
 			</form>
+			<button ng-click="getStarted()" type="button">Register</button>
+			<button ng-click="logout()" type="button">Log Out</button>
 		</header>
 		<nav class="border">
 			<button type="button">FAQ</button>
@@ -49,29 +51,29 @@
 				<tr>
 					<td>Username:</td>
 					<td>
-						<input name="userName" placeholder="Username...">
+						<input ng-model="newUsername" name="userName" placeholder="Username...">
 					</td>
 				</tr>
 				<tr>
 					<td>Password:</td>
 					<td>
-						<input name="password" placeholder="Password...">
+						<input ng-model="newPassword" name="password" placeholder="Password...">
 					</td>
 				</tr>
 				<tr>
 					<td>Each of your characters must live in a world! A world can be a story or novel you're writing; a location; or a fandom such as Star Wars, Steven Universe, Friendship is Magic, etc.</td>
 					<td>
-						<input name="worldName" placeholder="World name...">
+						<input ng-model="worldName" name="worldName" placeholder="World name...">
 					</td>
 				</tr>
 				<tr>
 					<td>Tell us about your world!</td>
 					<td>
-						<textarea name="worldDescription" form="startForm" placeholder="World description..."></textarea>
+						<textarea ng-model="worldInfo" name="worldDescription" form="startForm" placeholder="World description..."></textarea>
 					</td>
 				</tr>
+				<button ng-click="newUser()" type="button">Register!</button>
 			</table>
-			<button ng-click="newUser()" type="button">Register!</button>
 		</form>
 
 		<!-- VIEW USER'S CREATIONS -->
@@ -101,12 +103,6 @@
 			</ul>
 		</div>
 
-		<!-- INFO ABOUT CURRENTLY LOADED SHEET -->
-
-		<div class="border" ng-show="sheetShow">
-			<h1>Sheet Name</h1>
-			<div>Sheet description goes here. This tells about the ref sheet template you used, not about the character.</div>
-		</div>
 
 		<!-- CREATE NEW CHARACTER -->
 
@@ -139,20 +135,27 @@
 			<h1>Character Name</h1>
 			<img ng-src="{{}}" alt="image of character">
 			<ul>
-				<li>Link to character sheet goes here</li>
-				<li>Link to character sheet goes here</li>
-				<li>Link to character sheet goes here</li>
-				<li>Link to character sheet goes here</li>
+				<li>
+					<button type="button" ng-click="openCharSheet()">Link to Character Sheet</button>
+				</li>
 				<li>
 					<button type="button" ng-click="createSheet()">Add new character sheet</button>
 				</li>
 			</ul>
 		</div>
 
+		<!-- INFO ABOUT CURRENTLY LOADED SHEET -->
+
+		<div class="border" ng-show="sheetShow">
+			<button type="button" ng-click="closeInnerForm()">X</button>
+			<h1>Sheet Name</h1>
+			<div>Sheet description goes here. This tells about the ref sheet template you used, not about the character.</div>
+		</div>
+
 		<!-- VIEW CHARACTER SHEET -->
 
 		<div ng-show="sheetShow" class="border" name="viewCharSheet">
-			<button type="button" ng-click="close()">X</button>
+			<button type="button" ng-click="closeInnerForm()">X</button>
 			<h1>View Character Sheet</h1>
 			<button type="button">Edit sheet...</button>
 			<div class="border">
@@ -222,7 +225,7 @@
 		<!-- ADD NEW CHARACTER SHEET -->
 
 		<div class="border" ng-show="createSheetShow">
-			<button type="button" ng-click="close()">X</button>
+			<button type="button" ng-click="closeInnerForm()">X</button>
 			<h1>Add new sheet for character</h1>
 			<button type="button">Use Preset Sheet...</button>
 			<ul>
