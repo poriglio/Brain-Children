@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="characterApp">
+	<head>
+		<title>Welcome to Person Maker</title>
+		<meta charset="utf-8">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.min.js"></script>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body ng-controller="characterController">
+		<header class="border">
+			<h1>Person Maker</h1>
+			<form>
+				Username:
+				<input type="text" name="username" value="Username...">
+				Password:
+				<input type="text" name="password" value="Password...">
+				<button type="button">Log In</button>
+			</form>
+		</header>
+		<nav class="border">
+			<button type="button">Register</button>
+			<button type="button">FAQ</button>
+			<button type="button">About</button>
+		</nav>
+		<div class="border">
+			<h1>Welcome to Person Maker!</h1>
+			<div>
+				If you're a writer, roleplayer, or commissioner, you're in the right place! Person Maker is a place to create textual reference sheets for your characters so you have a way to keep track of their details as you write, easily share their information with fellow roleplayers, and give readable, organized info to the artists and writers you commission. Person Maker makes the creative process easy and organized for everyone involed.
+			</div>
+			<ul>
+				<li>use preset templates or create your own from scratch</li>
+				<li>learn more about your characters</li>
+				<li>organize your characters into worlds</li>
+				<li>easily add and remove information fields to your ref sheets</li>
+			</ul>
+			<button type="button">Get started!</button>
+		</div>
+		<script src="script.js"></script>
+	</body>
