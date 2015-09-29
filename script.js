@@ -55,7 +55,6 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		var world = new World($scope.worldName,$scope.worldInfo)
 		$scope.worlds.push(world)
 		World.prototype.type = "world"
-
 	}
 
 	// END CREATE WORLD
@@ -66,9 +65,30 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 
 
-	// BUILT-IN TEMPLATES
 
-	// END BUILT IN TEMPLATES
+	// CREATE CHARACTER
+
+	$scope.characters = []
+
+	var Character = function (characterName,characterInfo) {
+		this.characterName = characterName
+		this.characterInfo = characterInfo
+	}
+
+
+	var makeCharacter = function ( ) {
+		var character = new Character($scope.characterName,$scope.characterInfo)
+		Character.prototype.type = "character"
+		character.world = $scope.worldIndex
+		$scope.characters.push(character)
+		return character
+	}
+
+
+
+
+	// END CREATE CHARACTER
+
 
 
 
@@ -145,8 +165,6 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		$scope.sheetShow = false;
 		$scope.worldName = ""
 		$scope.worldInfo = ""
-		console.log($scope.worlds)
-
 	}
 
 	$scope.newTemplate = function ( ) {
@@ -160,7 +178,7 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 	}
 
-	$scope.newCharacter = function ( ) {
+	$scope.newCharacter = function ($index) {
 
 		$scope.createCharShow = true;
 		$scope.createTemplateShow = false;
@@ -168,7 +186,8 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		$scope.characterShow = false;
 		$scope.createSheetShow = false;
 		$scope.sheetShow = false;
-
+		$scope.worldIndex = $index.worldName
+		console.log($scope.worldIndex)
 	}
 
 	$scope.submitWorld = function ( ) {
@@ -188,6 +207,8 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 	$scope.submitCharacter = function ( ) {
 
 		$scope.createCharShow = false;
+		makeCharacter()
+		console.log(makeCharacter())
 
 	}
 

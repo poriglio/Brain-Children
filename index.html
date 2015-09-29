@@ -90,11 +90,13 @@
 				<li ng-repeat="world in worlds">
 					{{world.worldName}} : {{world.worldInfo}}
 					<ul>
-						<li>
-							<button type="button" ng-click="viewCharacter()">Character Name
+						<li ng-repeat="character in filteredCharacters = (characters | filter:worldName )">
+							<button type="button" ng-click="viewCharacter()">{{character.characterName}}
+							</button>
+							{{character.characterInfo}}
 						</li>
 						<li>
-							<button ng-click="newCharacter()" type="button">Create character...</button>
+							<button ng-click="newCharacter(world)" type="button">Create character...</button>
 						</li>
 					</ul>
 				</li>
@@ -114,9 +116,9 @@
 			<button type="button" ng-click="close()">X</button>
 			<h1>Create New Character</h1>
 			<form>
-				Character Name: <input placeholder="Name..." type="text">
-				Character Description: <textarea placeholder="Character description..."></textarea>
-				Character World:
+				Character Name: <input ng-model="characterName" placeholder="Name..." type="text">
+				Character Description: <textarea ng-model="characterInfo" placeholder="Character description..."></textarea>
+<!-- 				Character World:
 				<ul>
 					<li>
 						World Name <input type="radio" name="world">
@@ -127,7 +129,7 @@
 					<li>
 						World Name <input type="radio" name="world">
 					</li>
-				</ul>
+				</ul> -->
 				<button ng-click="submitCharacter()" type="button">Create character!</button>
 			</form>
 		</div>
