@@ -76,6 +76,10 @@
 			</table>
 		</form>
 
+		<div class="border" ng-show="loginPromptShow">
+			Great! You're ready to create! Just to be safe, enter your login information again at the top of the screen.
+		</div>
+
 		<!-- VIEW USER'S CREATIONS -->
 
 		<div class="border" ng-show="userShow">
@@ -83,8 +87,8 @@
 			<button ng-click="newWorld()" type="button">Create new world...</button>
 			<button type="buton" ng-click="newTemplate()">Create new template...</button>
 			<ul>
-				<li>
-					WorldName
+				<li ng-repeat="world in worlds">
+					{{world.worldName}} : {{world.worldInfo}}
 					<ul>
 						<li>
 							<button type="button" ng-click="viewCharacter()">Character Name
@@ -209,13 +213,13 @@
 				<tr>
 					<td>Each of your characters must live in a world! A world can be a story or novel you're writing; a location; or a fandom such as Star Wars, Steven Universe, Friendship is Magic, etc.</td>
 					<td>
-						<input name="worldName" placeholder="World name...">
+						<input ng-model="worldName" name="worldName" placeholder="World name...">
 					</td>
 				</tr>
 				<tr>
 					<td>Tell us about your world!</td>
 					<td>
-						<textarea name="worldDescription" form="startForm" placeholder="World description..."></textarea>
+						<textarea ng-model="worldInfo" name="worldDescription" form="startForm" placeholder="World description..."></textarea>
 					</td>
 				</tr>
 				<button ng-click="submitWorld()" type="button">Create World!</button>

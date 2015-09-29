@@ -34,8 +34,8 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		})
 
 		$scope.currentUser = valid[0].username
+		World.prototype.username = $scope.newUsername || $scope.currentUser
 		return $scope.currentUser
-
 	}
 
 	// END LOGIN VALIDATION
@@ -43,7 +43,7 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 	// CREATE WORLD
 
-	worlds = []
+	$scope.worlds = []
 
 	var World = function (worldName,worldInfo) {
 		this.worldName = worldName
@@ -53,12 +53,10 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 	var makeWorld = function ( ) {
 		var world = new World($scope.worldName,$scope.worldInfo)
-		worlds.push(world)
+		$scope.worlds.push(world)
 		World.prototype.type = "world"
-		World.prototype.username = $scope.newUsername || $scope.currentUser
-		console.log(worlds)
-	}
 
+	}
 
 	// END CREATE WORLD
 
@@ -124,6 +122,7 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		$scope.createCharShow = false;
 		$scope.createSheetShow = false;
 		$scope.editSheetShow = false;
+		$scope.loginPromptShow = false;
 		validate()
 
 	}
@@ -131,7 +130,7 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 	$scope.newUser = function ( ) {
 
 		$scope.registerShow = false;
-		$scope.userShow = true;
+		$scope.loginPromptShow = true;
 		register()
 		makeWorld()
 	}
@@ -144,6 +143,9 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		$scope.characterShow = false;
 		$scope.createSheetShow = false;
 		$scope.sheetShow = false;
+		$scope.worldName = ""
+		$scope.worldInfo = ""
+		console.log($scope.worlds)
 
 	}
 
@@ -171,7 +173,9 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 	$scope.submitWorld = function ( ) {
 
+
 		$scope.createWorldShow = false;
+		makeWorld()
 
 	}
 
