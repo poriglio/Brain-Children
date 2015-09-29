@@ -15,7 +15,20 @@ ul{
 	list-style-type: none;
 }
 
+textarea{
+	max-height: 300px;
+	width: 80%;
+}
+
 .btn-inline{
 	display: inline-block;
 	margin: 0.4rem;
+}
+
+.centering-container{
+	text-align: center;
+}
+
+.inline-block{
+	display: inline-block;
 }

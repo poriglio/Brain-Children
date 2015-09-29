@@ -10,16 +10,20 @@
 	</head>
 	<body ng-controller="characterController">
 		<div class="container">
-			<h1 class="border">Character Builder</h1>
-			<div class="border">
-				<h2>Create new character...</h2>
-				<form>
-					Name: <input ng-model="charName" type="text" name="name" placeholder="Name your character!">
-					<button class="btn btn-info btn-inline" type="button" ng-click="addChar()">Submit</button>
-				</form>
+			<h1 class="border text-center">Character Builder</h1>
+			<div class="border center-block">
+				<div class="centering-container">
+					<h2>Create new character...</h2>
+					<form class="inline-block">
+						Name: <input ng-model="charName" type="text" name="name" placeholder="Name your character!">
+						<button class="btn btn-info btn-inline" type="button" ng-click="addChar()">Submit</button>
+					</form>
+				</div>
 			</div>
 			<div class="border">
-				<h2>Characters I've Created</h2>
+				<div>
+					<h2 class="centering-container">Characters I've Created</h2>
+				</div>
 				<div class="row">
 					<div>
 						<ul class="col-xs-12 col-sm-4 col-md-3 col-lg-3" ng-repeat="character in characters">
@@ -36,25 +40,25 @@
 				</div>
 			</div>
 			<div ng-show="showForm" class="border">
-				<div>
+				<div class="centering-container">
 					<h3>Select a ref sheet...</h3>
 					<div ng-click="selectSheet($index)" class="btn-inline" ng-repeat="ref in refs">
-						<button class="btn btn-info" type="button">{{ref.sheetName}}</button>
+						<button class="btn btn-info inline-block" type="button">{{ref.sheetName}}</button>
 					</div>
 				</div>
-				<form ng-repeat="ref in refs | filterbyselected : selectedSheet">
+				<form class="centering-container" ng-repeat="ref in refs | filterbyselected : selectedSheet">
 					<h2>{{selectedSheet}} for {{selectedChar}}</h2>
 					<div ng-repeat="field in ref.fieldsArray">
 						<div>{{field.question}}</div>
 						<textarea ng-model="field.answer"></textarea>
 					</div>
-					<button class="btn-inline btn btn-info" type="button">Save</button>
+					<button ng-click="saveSheet($index)" class="btn-inline btn btn-info" type="button">Save</button>
 				</form>
 			</div>
-			<div ng-show="showSheet" ng-repeat="ref in refs" class="border">
-				<h2>{{ref.sheetName}} for {{charName}}</h2>
+			<div ng-show="showSheet" ng-repeat="ref in refs | filterbyselected : selectedSheet" class="border">
+				<h2>{{ref.sheetName}} for {{selectedChar}}</h2>
 				<div ng-repeat="field in ref.fieldsArray">
-					<div><strong>{{field.question}}:</strong></div>
+					<div class="text-left"><strong>{{field.question}}:</strong></div>
 					<div>{{field.answer}}</div>
 				</div>
 				<button class="btn btn-info btn-inline" type="button">Edit</button>
