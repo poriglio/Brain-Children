@@ -261,6 +261,6 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 	// END CLICK AND HIDE/SHOW EVENTS
 
-
+	// THIS BETTER WORK
 
 }])
