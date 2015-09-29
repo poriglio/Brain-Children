@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="characterApp">
+	<head>
+		<title>Character Maker</title>
+		<meta charset="utf-8">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.min.js"></script>
+		<script src="script.js"></script>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body ng-controller="characterController">
+		<h1 class="border">Character Builder</h1>
+		<div class="border">
+			<h2>Create new character...</h2>
+			<form>
+				Name: <input ng-model="charName" type="text" name="name" placeholder="Name your character!">
+				<button type="button" ng-click="addChar()">Submit</button>
+			</form>
+		</div>
+		<div class="border">
+			<div>
+				<h2>Characters I've Created</h2>
+				<ul ng-repeat="character in characters">
+					<li><h3>{{character.charName}}</h3>
+						<ul>
+							<li>Ref Sheet</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div ng-repeat="ref in refs" class="border">
+			<form>
+				<h2>{{ref.sheetName}}</h2>
+				<div ng-repeat="field in ref.fieldsArray">
+					<div>{{field.question}}</div>
+					<textarea></textarea>
+				</div>
+				<button type="button">Submit</button>
+			</form>
+		</div>
+	</body>
+</html>
