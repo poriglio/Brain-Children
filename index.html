@@ -12,9 +12,9 @@
 			<h1>Person Maker</h1>
 			<form>
 				Username:
-				<input ng-model="loginUsername" type="text" name="username" placeholder="Username...">
+				<input ng-model="loginUsername" type="text" name="username">
 				Password:
-				<input ng-model="loginPassword" type="text" name="password" placeholder="Password...">
+				<input ng-model="loginPassword" type="text" name="password">
 				<button ng-click="login()" type="button">Log In</button>
 			</form>
 			<button ng-click="getStarted()" type="button">Register</button>
@@ -103,7 +103,7 @@
 				<li>
 					Templates
 					<ul>
-						<li>Template Name</li>
+						<li ng-repeat="template in userTemplates"><button type="button">{{template.sheetName}}</button>{{template.sheetInfo}}</li>
 					</ul>
 				</li>
 			</ul>
@@ -195,9 +195,9 @@
 			<button type="button" ng-click="close()">X</button>
 			<h1>Create New Template</h1>
 			<form>
-				Sheet name:<input type="text" placeholder="sheet name...">
-				Sheet description:<textarea placeholder="sheet description..."></textarea>
-				Number of fields to start:<input type="text" placeholder="number of fields to start...">
+				Sheet name:<input ng-model="sheetName" type="text" placeholder="sheet name...">
+				Sheet description:<textarea ng-model="sheetInfo" placeholder="sheet description..."></textarea>
+				Number of fields to start:<input ng-model="numberFields" type="text" placeholder="number of fields to start...">
 				<div class="border">
 					Fieldname: <input type="text" placeholder="fieldName">
 					<textarea placeholder="fieldContent"></textarea>
@@ -254,6 +254,5 @@
 			</div>
 			<button ng-click="submitSheet()" type="button">Create sheet!</button>
 		</div>
-<!-- THIS IS PISSING ME OFF! -->
 	</body>
 </html>

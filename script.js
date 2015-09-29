@@ -60,12 +60,6 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 	// END CREATE WORLD
 
 
-
-
-
-
-
-
 	// CREATE CHARACTER
 
 	$scope.characters = []
@@ -84,11 +78,33 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		return character
 	}
 
-
-
-
 	// END CREATE CHARACTER
 
+
+
+
+	// CREATE TEMPLATE
+
+	$scope.userTemplates = []
+
+	var UserTemplate = function (sheetName,sheetInfo,numberFields,fieldsArray) {
+		this.sheetName = sheetName
+		this.sheetInfo = sheetInfo
+		this.numberFields = numberFields
+		this.fieldsArray = []
+	}
+
+
+	var makeUserTemplate = function ( ) {
+		var userTemplate = new UserTemplate($scope.sheetName,$scope.sheetInfo,$scope.numberFields)
+		UserTemplate.prototype.type = "template"
+		UserTemplate.prototype.username = $scope.currentUser
+		$scope.userTemplates.push(userTemplate)
+		return userTemplate
+	}
+
+
+	// END CREATE TEMPLATE
 
 
 
@@ -200,6 +216,7 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 	$scope.submitTemplate = function ( ) {
 
 		$scope.createTemplateShow = false;
+		makeUserTemplate()
 
 	}
 

@@ -1,0 +1,42 @@
+https://scotch.io/tutorials/building-custom-angularjs-filters#anatomy-of-an-angular-filter
+
+		<div class="border" ng-show="userShow">
+			<h1>Username's Creations</h1>
+			<button ng-click="newWorld()" type="button">Create new world...</button>
+			<button type="buton" ng-click="newTemplate()">Create new template...</button>
+			<ul>
+				<li ng-repeat="world in worlds">
+					{{world.worldName}} : {{world.worldInfo}}
+					<ul>
+						<li ng-repeat="character in characters | filterbyworld : world.worldName">
+							<button type="button" ng-click="viewCharacter()">{{character.characterName}}
+							</button>
+							{{character.characterInfo}}
+						</li>
+						<li>
+							<button ng-click="newCharacter(world)" type="button">Create character...</button>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Templates
+					<ul>
+						<li>Template Name</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+// THIS FILTER EXPECTS AN ARRAY OF CHARACTERS AND A WORLD NAME
+
+angular.module("characterApp").filter('filterbyworld', function(){
+  return function(input,worldName){
+    var output = [];
+    angular.forEach(input, function(character){
+      if(character.world === worldName){
+        output.push(character)
+      }
+    })
+    return output;
+  }
+})
