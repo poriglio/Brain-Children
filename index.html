@@ -90,7 +90,7 @@
 				<li ng-repeat="world in worlds">
 					{{world.worldName}} : {{world.worldInfo}}
 					<ul>
-						<li ng-repeat="character in filteredCharacters = (characters | filter:worldName )">
+						<li ng-repeat="character in characters | filterbyworld : world.worldName">
 							<button type="button" ng-click="viewCharacter()">{{character.characterName}}
 							</button>
 							{{character.characterInfo}}

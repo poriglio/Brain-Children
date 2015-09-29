@@ -187,7 +187,6 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		$scope.createSheetShow = false;
 		$scope.sheetShow = false;
 		$scope.worldIndex = $index.worldName
-		console.log($scope.worldIndex)
 	}
 
 	$scope.submitWorld = function ( ) {
@@ -208,8 +207,6 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 		$scope.createCharShow = false;
 		makeCharacter()
-		console.log(makeCharacter())
-
 	}
 
 	$scope.viewCharacter = function ( ) {
@@ -261,6 +258,20 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 	// END CLICK AND HIDE/SHOW EVENTS
 
-	// THIS BETTER WORK
+
 
 }])
+
+// THIS FILTER EXPECTS AN ARRAY OF CHARACTERS AND A WORLD NAME
+
+angular.module("characterApp").filter('filterbyworld', function(){
+  return function(input,worldName){
+    var output = [];
+    angular.forEach(input, function(character){
+      if(character.world === worldName){
+        output.push(character)
+      }
+    })
+    return output;
+  }
+})
