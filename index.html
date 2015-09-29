@@ -198,11 +198,13 @@
 				Sheet name:<input ng-model="sheetName" type="text" placeholder="sheet name...">
 				Sheet description:<textarea ng-model="sheetInfo" placeholder="sheet description..."></textarea>
 				Number of fields to start:<input ng-model="numberFields" type="text" placeholder="number of fields to start...">
-				<div class="border">
-					Fieldname: <input type="text" placeholder="fieldName">
-					<textarea placeholder="fieldContent"></textarea>
-				</div>
 				<button ng-click="submitTemplate()" type="button">Create template!</button>
+				<div class="border" ng-show="showNewTemplateFields" ng-repeat="object in userTemplates">
+					<div ng-repeat="field in object.fieldsArray">
+						{{field.question}}<input type="text" placeholder="fieldName">
+						<textarea placeholder="fieldContent">{{field.answer}}</textarea>
+					</div>
+				</div>
 			</form>
 		</div>
 

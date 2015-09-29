@@ -91,7 +91,7 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		this.sheetName = sheetName
 		this.sheetInfo = sheetInfo
 		this.numberFields = numberFields
-		this.fieldsArray = []
+		this.fieldsArray = this.fieldsArray()
 	}
 
 
@@ -103,6 +103,18 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		return userTemplate
 	}
 
+	UserTemplate.prototype.fieldsArray = function(template){
+		var fieldsArray = []
+		for(var x = 0; x < this.numberFields; x++){
+			fieldsArray.push({question : "question", answer : "answer"})
+		}
+		console.log(fieldsArray)
+		return fieldsArray
+	}
+
+	var editUserTemplate = function ( ) {
+		$scope.showNewTemplateFields = true;
+	}
 
 	// END CREATE TEMPLATE
 
@@ -217,6 +229,7 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 		$scope.createTemplateShow = false;
 		makeUserTemplate()
+		editUserTemplate()
 
 	}
 
