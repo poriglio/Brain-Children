@@ -294,7 +294,7 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 // THIS FILTER EXPECTS AN ARRAY OF CHARACTERS AND A WORLD NAME
 
-angular.module("characterApp").filter('filterbyworld', function(){
+angular.module("characterApp").filter('filterbyselected', function(){
   return function(input,worldName){
     var output = [];
     angular.forEach(input, function(character){

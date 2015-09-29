@@ -1,6 +1,7 @@
 body{
 	font-family: Arial, sans-serif;
 	color: #440075;
+	background-color: #F4D0E7;
 }
 
 .border {
@@ -8,4 +9,13 @@ body{
 	padding: 1rem;
 	margin: 1rem;
 	background-color: #CCF2FF;
+}
+
+ul{
+	list-style-type: none;
+}
+
+.btn-inline{
+	display: inline-block;
+	margin: 0.4rem;
 }

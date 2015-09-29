@@ -2,20 +2,40 @@ angular.module("characterApp", [])
 
 angular.module("characterApp").controller("characterController",["$scope",function($scope){
 
+	$scope.showSheet = false
+	$scope.showForm = true
+
 
 	// CHARACTER CREATION
 
-	$scope.characters = []
+	$scope.characters = [{charName : "Lacey"},{charName : "Mo"},{charName : "Will"},{charName : "Jack"},{charName : "Lucinda"},{charName : "Carmen"}]
 
 	$scope.addChar = function ( ) {
-		var Character = function (charName) {
-			this.charName = charName
+		if($scope.charName !== undefined ){
+			var Character = function (charName) {
+				this.charName = charName
+			}
+			var character = new Character($scope.charName)
+			$scope.characters.push(character)
 		}
-		var character = new Character($scope.charName)
-		$scope.characters.push(character)
-		$scope.charName = ""
-		console.log($scope.characters)
+		$scope.charName = undefined
 	}
+
+	// REF SHEET TEMPLATE SELECTION
+
+	$scope.selectedChar = "..."
+	$scope.selectedSheet = "Basic Info"
+
+	$scope.selectSheet = function ($index){
+		$scope.selectedSheet = $scope.refs[$index].sheetName
+		return $scope.selectedSheet
+	}
+
+	$scope.selectChar = function ($index){
+		$scope.selectedChar = $scope.characters[$index].charName
+		return $scope.selectedChar
+	}
+
 
 	// PRESET REF SHEETS
 
@@ -25,7 +45,6 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		this.sheetName = sheetName
 		this.fieldsArray = fieldsArray
 		$scope.refs.push(this)
-		console.log($scope.refs)
 	}
 
 	var ref1 = new Ref("Basic Info",[{question: "Gender", answer : ""},{question: "Orientation", answer : ""},{question: "Species", answer : ""},{question: "Breed", answer : ""},{question: "Hobbies", answer : ""},{question: "Enneagram Type", answer : ""},{question: "Job", answer : ""},{question: "Car", answer : ""},{question: "Location", answer : ""},{question: "Birthday", answer : ""},{question: "Birthplace", answer : ""}])
@@ -36,3 +55,17 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 	var ref6 = new Ref("Favorites",[{question: "question", answer : ""},{question: "question", answer : ""},{question: "question", answer : ""},{question: "question", answer : ""},{question: "question", answer : ""},{question: "question", answer : ""},{question: "question", answer : ""},{question: "question", answer : ""},{question: "question", answer : ""},{question: "question", answer : ""},{question: "question", answer : ""}])
 
 }])
+
+// THIS FILTER EXPECTS THE SELECTED REF TEMPLATE
+
+angular.module("characterApp").filter('filterbyselected', function(){
+  return function(input,selectedSheet){
+    var output = [];
+    angular.forEach(input, function(ref){
+      if(ref.sheetName === selectedSheet){
+        output.push(ref)
+      }
+    })
+    return output;
+  }
+})
