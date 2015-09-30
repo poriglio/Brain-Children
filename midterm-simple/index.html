@@ -41,7 +41,7 @@
 			</div>
 
 
-			<div ng-show="showForm" class="border-box content-box">
+			<div ng-show="showButtons" class="border-box content-box">
 				<div class="centered-text">
 					<div class="inline-button display-inline" ng-click="selectSheet($index)" ng-repeat="ref in refs">
 						<button class="brown-button" type="button">{{ref.sheetName}}</button>
@@ -50,7 +50,7 @@
 			
 			<!-- REF SHEET FORM -->
 
-				<form class="centered-text" ng-repeat="ref in refs | filterbyselected : selectedSheet">
+				<form ng-show="ref.active" class="centered-text" ng-repeat="ref in refs">
 					<h2 class="centered-text">{{selectedSheet}} for {{selectedChar}}</h2>
 					<div ng-repeat="field in ref.fieldsArray">
 						<div class="question">{{field.question}}</div>
@@ -62,7 +62,7 @@
 
 			<!-- REF SHEET COMPLETED -->
 
-			<div ng-show="showSheet" ng-repeat="ref in refs | filterbyselected : selectedSheet" class="border-box content-box">
+			<div ng-show="ref.active" ng-repeat="ref in refs" class="border-box content-box">
 				<h2 class="centered-text">{{ref.sheetName}} for {{selectedChar}}</h2>
 				<div ng-repeat="field in ref.fieldsArray">
 					<div class="question"><strong>{{field.question}}:</strong></div>
