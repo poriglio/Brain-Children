@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="characterApp">
 	<head>
-		<title>Character Maker</title>
+		<title>Brain Children</title>
 		<meta charset="utf-8">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.min.js"></script>
 		<script src="script.js"></script>
@@ -10,19 +10,19 @@
 	</head>
 	<body ng-controller="characterController">
 		<div class="content-container container">
-			<h1 class="border">Character Builder</h1>
-			<div class="border">
+			<h1 class="border-box heading-box centered-text">Brain Children</h1>
+			<div class="border-box content-box">
 				<div>
-					<h2>Create new character...</h2>
+					<h3>Create new character...</h3>
 					<form>
 						Name: <input ng-model="charName" type="text" name="name" placeholder="Name your character!">
 						<button class="brown-button soloButton" type="button" ng-click="addChar()">Submit</button>
 					</form>
 				</div>
 			</div>
-			<div class="border">
+			<div class="border-box content-box">
 				<div>
-					<h2>Characters I've Created</h2>
+					<h2 class="centered-text">Characters I've Created</h2>
 				</div>
 				<div class="row">
 					<div>
@@ -39,10 +39,10 @@
 					</div>
 				</div>
 			</div>
-			<div ng-show="showForm" class="border">
-				<div>
+			<div ng-show="showForm" class="border-box content-box">
+				<div class="centered-text">
 					<h3>Select a ref sheet...</h3>
-					<div class="inlineButton" ng-click="selectSheet($index)" ng-repeat="ref in refs">
+					<div class="inline-button display-inline" ng-click="selectSheet($index)" ng-repeat="ref in refs">
 						<button class="brown-button" type="button">{{ref.sheetName}}</button>
 					</div>
 				</div>
@@ -55,7 +55,7 @@
 					<button ng-click="saveSheet($index)" class="brown-button soloButton" type="button">Save</button>
 				</form>
 			</div>
-			<div ng-show="showSheet" ng-repeat="ref in refs | filterbyselected : selectedSheet" class="border">
+			<div ng-show="showSheet" ng-repeat="ref in refs | filterbyselected : selectedSheet" class="border-box content-box">
 				<h2>{{ref.sheetName}} for {{selectedChar}}</h2>
 				<div ng-repeat="field in ref.fieldsArray">
 					<div><strong>{{field.question}}:</strong></div>
