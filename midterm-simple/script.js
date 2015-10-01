@@ -5,6 +5,19 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 	$scope.showSheet = false
 	$scope.showButtons = false
 
+	// VIEW REF SHEET
+
+	$scope.viewCharSheet = function ($index) {
+		console.log($scope.ref)
+		$scope.userRefs.forEach(function(element){
+			element.active = false
+			console.log($scope.userRefs)
+		})
+		$scope.userRefs[$index].active = true
+
+	}
+
+
 
 	// CHARACTER CREATION
 
@@ -21,6 +34,65 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		$scope.charName = undefined
 	}
 
+	// END CHARACTER CREATION
+
+	// SAVE REF SHEET FOR CHARACTER
+
+	var Ref = function (sheetName,fieldsArray,character){
+		this.sheetName = sheetName
+		this.fieldsArray = fieldsArray
+		this.character = character
+		this.active = false
+		$scope.refs.push(this)
+	}
+
+	// DEFAULT USER REFS
+
+	$scope.userRefs = [
+	{
+		sheetName : "Probing Questions",
+		fieldsArray : [{question: "Would s/he give his/her life for a stranger?",answer:"blah9"},{question: "What does s/he feel most guilty about from the past?",answer:"blah8"},{question: "What is s/he ashamed of?",answer:"blah00"},{question: "What is his/her opinion of drugs?",answer:"blah0"},{question: "What is a dream s/he longs for but keeps secret?",answer:"blah7"},{question: "Would s/he ever cheat on his/her partner?",answer:"blah6"},{question: "What is the worst thing s/he'd do for money?",answer:"blah4"},{question: "How has s/he been betrayed?",answer:"blah5"},{question: "What is his/her favorite childhood memory?",answer:"blah3"},{question: "What is his/her most awful childhood memory?",answer:"blah2"},{question: "What is his/her best character trait?",answer:"blah1"}],
+		character : "Lacey",
+		active : false,
+		myIndex : 0
+	},
+	{
+		sheetName : "Favorites",
+		fieldsArray : [{question: "food", answer: "thing1"},{question: "color", answer: "thing2"},{question: "restaurant", answer: "thing3"},{question: "movie", answer: "thing4"},{question: "song", answer: "thing5"},{question: "family member", answer: "thing6"},{question: "sport", answer: "thing7"},{question: "item of clothing", answer: "thing8"},{question: "dessert", answer: "thing9"},{question: "season", answer: "thing11"},{question: "animal", answer: "thing111"}],
+		character : "Mo",
+		active : false,
+		myIndex : 1
+	}
+	]
+
+	// END DEFAULT USER REFS
+
+	var createSheet = function($index){
+		
+		var newRef = $scope.refs[$index]
+		newRef.character = $scope.selectedChar
+		newRef.myIndex = $scope.userRefs.length 
+		$scope.userRefs.push(newRef)
+	}
+
+	// var clearRef = function($index){
+	// 	$scope.refs[$index].fieldsArray.forEach(function(element){
+	// 		element.answer = ""
+	// 	})
+	// }
+
+	$scope.saveSheet = function ($index) {
+		createSheet($index)
+		$scope.showSheet = true
+		$scope.showButtons = false
+		console.log("user refs:")
+		console.log($scope.userRefs)
+		console.log("preset refs:")
+		console.log($scope.refs)
+	}
+
+	// END SAVE REF SHEET FOR CHARACTER
+
 	// REF SHEET TEMPLATE SELECTION
 
 	$scope.selectedChar = "..."
@@ -31,10 +103,12 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		$scope.refs.forEach(function(element){
 			element.active=false;
 		})
-		console.log($scope.refs[$index])
 		$scope.refs[$index].active = true;
 		$scope.selectedSheet = $scope.refs[$index].sheetName
-		// clearRef($index)
+		$scope.userRefs.forEach(function(element){
+			element.active = false
+			console.log($scope.userRefs)
+		})
 		return $scope.selectedSheet
 	}
 
@@ -48,34 +122,7 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		return $scope.selectedChar
 	}
 
-	// SAVE REF SHEET FOR CHARACTER
-
-	$scope.userRefs = []
-
-	var createSheet = function($index){
-		console.log($index)
-		var newRef = $scope.refs[$index]
-		newRef.character = $scope.selectedChar
-		$scope.userRefs.push(newRef)
-		console.log($scope.userRefs)
-	}
-
-	// var clearRef = function($index){
-	// 	$scope.refs[$index].fieldsArray.forEach(function(element){
-	// 		element.answer = ""
-	// 	})
-	// 	console.log($scope.refs)
-	// }
-
-	$scope.saveSheet = function ($index) {
-		createSheet($index)
-		$scope.showSheet = true
-		$scope.showButtons = false
-	}
-
-	// END SAVE REF SHEET FOR CHARACTER
-
-
+	// END REF SHEET TEMPLATE SELECTION
 
 	// PRESET REF SHEETS
 
@@ -89,11 +136,20 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		$scope.refs.push(this)
 	}
 
-	var ref1 = new Ref("Basic Info",[{question: "Gender", answer : ""},{question: "Orientation", answer : ""},{question: "Species", answer : ""},{question: "Breed", answer : ""},{question: "Hobbies", answer : ""},{question: "Enneagram Type", answer : ""},{question: "Job", answer : ""},{question: "Car", answer : ""},{question: "Location", answer : ""},{question: "Birthday", answer : ""},{question: "Birthplace", answer : ""}],"")
-	var ref2 = new Ref("Physical Characteristics",[{question: "Height", answer : ""},{question: "Hairstyle", answer : ""},{question: "Fur Color", answer : ""},{question: "Hair Color", answer : ""},{question: "Weight", answer : ""},{question: "Piercings", answer : ""},{question: "Tattoos", answer : ""},{question: "Scars", answer : ""},{question: "Eye Color", answer : ""},{question: "Clothing Style", answer : ""},{question: "Build", answer : ""}],"")
-	var ref3 = new Ref("Family and Friends",[{question: "best friend", answer : ""},{question: "ex-friend", answer : ""},{question: "frienemy", answer : ""},{question: "deceased friends", answer : ""},{question: "deceased relatives", answer : ""},{question: "the one s/he dreads seeing on holidays", answer : ""},{question: "siblings", answer : ""},{question: "parents", answer : ""},{question: "step-family members", answer : ""},{question: "childhood best friend", answer : ""},{question: "the one s/he'd have a crush on if they weren't family", answer : ""}],"")
-	var ref4 = new Ref("Romantic Past, Present, and Future",[{question: "sexual orientation", answer : ""},{question: "current crush", answer : ""},{question: "first lover", answer : ""},{question: "first crush", answer : ""},{question: "monogamy versus polyamory?", answer : ""},{question: "celebrity crush", answer : ""},{question: "first kiss", answer : ""},{question: "marriage?", answer : ""},{question: "children?", answer : ""},{question: "the one that got away", answer : ""},{question: "worst breakup", answer : ""}],"")
-	var ref5 = new Ref("Probing Questions",[{question: "Would s/he give his/her life for a stranger?", answer : ""},{question: "What does s/he feel most guilty about from the past?", answer : ""},{question: "What is s/he ashamed of?", answer : ""},{question: "What is his/her opinion of drugs?", answer : ""},{question: "What is a dream s/he longs for but keeps secret?", answer : ""},{question: "Would s/he ever cheat on his/her partner?", answer : ""},{question: "What is the worst thing s/he'd do for money?", answer : ""},{question: "How has s/he been betrayed?", answer : ""},{question: "What is his/her favorite childhood memory?", answer : ""},{question: "What is his/her most awful childhood memory?", answer : ""},{question: "What is his/her best character trait?", answer : ""}],"")
-	var ref6 = new Ref("Favorites",[{question: "food", answer : ""},{question: "color", answer : ""},{question: "restaurant", answer : ""},{question: "movie", answer : ""},{question: "song", answer : ""},{question: "family member", answer : ""},{question: "sport", answer : ""},{question: "item of clothing", answer : ""},{question: "dessert", answer : ""},{question: "season", answer : ""},{question: "animal", answer : ""}],"")
+	var ref1 = new Ref("Basic Info",[{question: "Gender"},{question: "Orientation"},{question: "Species"},{question: "Breed"},{question: "Hobbies"},{question: "Enneagram Type"},{question: "Job"},{question: "Car"},{question: "Location"},{question: "Birthday"},{question: "Birthplace"}],"")
+	var ref2 = new Ref("Physical Characteristics",[{question: "Height"},{question: "Hairstyle"},{question: "Fur Color"},{question: "Hair Color"},{question: "Weight"},{question: "Piercings"},{question: "Tattoos"},{question: "Scars"},{question: "Eye Color"},{question: "Clothing Style"},{question: "Build"}],"")
+	var ref3 = new Ref("Family and Friends",[{question: "best friend"},{question: "ex-friend"},{question: "frienemy"},{question: "deceased friends"},{question: "deceased relatives"},{question: "the one s/he dreads seeing on holidays"},{question: "siblings"},{question: "parents"},{question: "step-family members"},{question: "childhood best friend"},{question: "the one s/he'd have a crush on if they weren't family"}],"")
+	var ref4 = new Ref("Romantic Past, Present, and Future",[{question: "sexual orientation"},{question: "current crush"},{question: "first lover"},{question: "first crush"},{question: "monogamy versus polyamory?"},{question: "celebrity crush"},{question: "first kiss"},{question: "marriage?"},{question: "children?"},{question: "the one that got away"},{question: "worst breakup"}],"")
+	var ref5 = new Ref("Probing Questions",[{question: "Would s/he give his/her life for a stranger?"},{question: "What does s/he feel most guilty about from the past?"},{question: "What is s/he ashamed of?"},{question: "What is his/her opinion of drugs?"},{question: "What is a dream s/he longs for but keeps secret?"},{question: "Would s/he ever cheat on his/her partner?"},{question: "What is the worst thing s/he'd do for money?"},{question: "How has s/he been betrayed?"},{question: "What is his/her favorite childhood memory?"},{question: "What is his/her most awful childhood memory?"},{question: "What is his/her best character trait?"}],"")
+	var ref6 = new Ref("Favorites",[{question: "food"},{question: "color"},{question: "restaurant"},{question: "movie"},{question: "song"},{question: "family member"},{question: "sport"},{question: "item of clothing"},{question: "dessert"},{question: "season"},{question: "animal"}],"")
+
+	// var ref1 = new Ref("Basic Info",[{question: "Gender"},{question: "Orientation"},{question: "Species"},{question: "Breed"},{question: "Hobbies"},{question: "Enneagram Type"},{question: "Job"},{question: "Car"},{question: "Location"},{question: "Birthday"},{question: "Birthplace"}],"")
+	// var ref2 = new Ref("Physical Characteristics",[{question: "Height"},{question: "Hairstyle"},{question: "Fur Color"},{question: "Hair Color"},{question: "Weight"},{question: "Piercings"},{question: "Tattoos"},{question: "Scars"},{question: "Eye Color"},{question: "Clothing Style"},{question: "Build"}],"")
+	// var ref3 = new Ref("Family and Friends",[{question: "best friend"},{question: "ex-friend"},{question: "frienemy"},{question: "deceased friends"},{question: "deceased relatives"},{question: "the one s/he dreads seeing on holidays"},{question: "siblings"},{question: "parents"},{question: "step-family members"},{question: "childhood best friend"},{question: "the one s/he'd have a crush on if they weren't family"}],"")
+	// var ref4 = new Ref("Romantic Past, Present, and Future",[{question: "sexual orientation"},{question: "current crush"},{question: "first lover"},{question: "first crush"},{question: "monogamy versus polyamory?"},{question: "celebrity crush"},{question: "first kiss"},{question: "marriage?"},{question: "children?"},{question: "the one that got away"},{question: "worst breakup"}],"")
+	// var ref5 = new Ref("Probing Questions",[{question: "Would s/he give his/her life for a stranger?"},{question: "What does s/he feel most guilty about from the past?"},{question: "What is s/he ashamed of?"},{question: "What is his/her opinion of drugs?"},{question: "What is a dream s/he longs for but keeps secret?"},{question: "Would s/he ever cheat on his/her partner?"},{question: "What is the worst thing s/he'd do for money?"},{question: "How has s/he been betrayed?"},{question: "What is his/her favorite childhood memory?"},{question: "What is his/her most awful childhood memory?"},{question: "What is his/her best character trait?"}],"")
+	// var ref6 = new Ref("Favorites",[{question: "food"},{question: "color"},{question: "restaurant"},{question: "movie"},{question: "song"},{question: "family member"},{question: "sport"},{question: "item of clothing"},{question: "dessert"},{question: "season"},{question: "animal"}],"")
+
+	// END PRESET REF SHEETS
 
 }])

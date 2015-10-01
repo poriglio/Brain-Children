@@ -9,10 +9,16 @@
 		<link rel="stylesheet" href="styles.css">
 	</head>
 	<body ng-controller="characterController">
+
+	<!-- HEADING BOX -->
+
 		<div class="content-container container">
 			<h1 class="border-box heading-box centered-text">Brain Children</h1>
 			<div class="border-box content-box">
 				<div class="centered-text">
+
+			<!-- ADD CHARACTER FORM -->
+
 					<h3>Add Character</h3>
 					<form>
 						<input ng-model="charName" type="text" name="name" placeholder="name...">
@@ -20,6 +26,9 @@
 					</form>
 				</div>
 			</div>
+
+			<!-- LIST OF CHARACTERS -->
+
 			<div class="border-box content-box">
 				<div>
 					<h2 class="centered-text">My Characters</h2>
@@ -28,8 +37,8 @@
 					<div class="display-inline">
 						<ul class="col-xs-6 col-sm-4 col-md-*" ng-repeat="character in characters">
 							<li><h3>{{character.charName}}</h3>
-								<ul ng-repeat="ref in userRefs">
-									<li>{{ref.sheetName}}</li>
+								<ul>
+									<li class="inline-link" ng-click="viewCharSheet($index)" ng-repeat="ref in userRefs | filter:{character:character.charName}">{{ref.sheetName}}</li>
 									<li>
 										<button ng-click="selectChar($index)" class="brown-button soloButton" type="button">Add sheet</button>
 									</li>
@@ -40,6 +49,7 @@
 				</div>
 			</div>
 
+			<!-- TEMPLATE SELECTION BUTTONS -->
 
 			<div ng-show="showButtons" class="border-box content-box">
 				<div class="centered-text">
@@ -60,10 +70,10 @@
 				</form>
 			</div>
 
-			<!-- REF SHEET COMPLETED -->
+			<!-- REF SHEET VIEW -->
 
-			<div ng-show="ref.active" ng-repeat="ref in refs" class="border-box content-box">
-				<h2 class="centered-text">{{ref.sheetName}} for {{selectedChar}}</h2>
+			<div ng-show="ref.active" ng-repeat="ref in userRefs" class="border-box content-box">
+				<h2 class="centered-text">{{ref.sheetName}} for {{ref.character}}</h2>
 				<div ng-repeat="field in ref.fieldsArray">
 					<div class="question"><strong>{{field.question}}:</strong></div>
 					<div class="answer">{{field.answer}}</div>
