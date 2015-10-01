@@ -12,6 +12,7 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 	$scope.selectCharacter= function ($index) {
 
+		deactivateTemplates()
 		deactivateChars()
 		$scope.characters[$index].active = true
 
@@ -39,6 +40,7 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		$scope.characters[findCharacterIndex()].charSheets.push(newSheet)
 		deactivateTemplates()
 		deactivateChars()
+		$scope.templateButtons = true
 		console.log($scope.characters)
 	}
 

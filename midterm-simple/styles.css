@@ -131,6 +131,8 @@ USE ANYWHERE
 .inline-link:hover{
 	color: rgb(56,28,8);
 	font-weight: bold;
+	transition-property: color;
+	transition-duration: 0.2s;
 }
 
 .centered-text {

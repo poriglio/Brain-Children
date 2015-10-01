@@ -4,6 +4,7 @@
 		<title>Brain Children</title>
 		<meta charset="utf-8">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-animate.js"></script>
 		<script src="script.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="styles.css">
@@ -36,9 +37,9 @@
 				<div class="row centered-text">
 					<div class="display-inline">
 						<ul class="col-xs-6 col-sm-4 col-md-*" ng-repeat="object in characters">
-							<li><h3 ng-click="selectCharacter($index)">{{object.charName}}</h3>
+							<li><h3 class="inline-link" ng-click="selectCharacter($index)">{{object.charName}}</h3>
 								<ul>
-									<li class="inline-link" ng-click="ref.active = true" ng-repeat="ref in object.charSheets">{{ref.sheetName}}</li>
+									<li ng-click="ref.active = true" ng-repeat="ref in object.charSheets">{{ref.sheetName}}</li>
 									<li>
 										<button ng-click="addSheet($index)" class="brown-button soloButton" type="button">Add sheet</button>
 									</li>
@@ -51,7 +52,7 @@
 
 			<!-- TEMPLATE SELECTION BUTTONS -->
 
-			<div ng-show="templateButtons" class="border-box content-box">
+			<div ng-show="templateButtons" class="border-box content-box buttons-appear">
 				<div class="centered-text">
 					<div class="inline-button display-inline" ng-click="selectTemplate($index)" ng-repeat="ref in templates">
 						<button class="brown-button" type="button">{{ref.sheetName}}</button>
