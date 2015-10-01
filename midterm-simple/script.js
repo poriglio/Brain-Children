@@ -31,12 +31,10 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		$scope.refs.forEach(function(element){
 			element.active=false;
 		})
-		// $scope.refs[$index].fieldsArray.forEach(function(element){
-		// 	element.answer = ""
-		// })
 		console.log($scope.refs[$index])
 		$scope.refs[$index].active = true;
 		$scope.selectedSheet = $scope.refs[$index].sheetName
+		// clearRef($index)
 		return $scope.selectedSheet
 	}
 
@@ -52,13 +50,22 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 	// SAVE REF SHEET FOR CHARACTER
 
+	$scope.userRefs = []
+
 	var createSheet = function($index){
 		console.log($index)
 		var newRef = $scope.refs[$index]
 		newRef.character = $scope.selectedChar
-		$scope.refs.push(newRef)
-		console.log($scope.refs)
+		$scope.userRefs.push(newRef)
+		console.log($scope.userRefs)
 	}
+
+	// var clearRef = function($index){
+	// 	$scope.refs[$index].fieldsArray.forEach(function(element){
+	// 		element.answer = ""
+	// 	})
+	// 	console.log($scope.refs)
+	// }
 
 	$scope.saveSheet = function ($index) {
 		createSheet($index)
