@@ -38,7 +38,7 @@
 						<ul class="col-xs-6 col-sm-4 col-md-*" ng-repeat="character in characters">
 							<li><h3>{{character.charName}}</h3>
 								<ul>
-									<li class="inline-link" ng-click="viewCharSheet($index)" ng-repeat="ref in userRefs | filter:{character:character.charName}">{{ref.sheetName}}</li>
+									<li class="inline-link" ng-click="viewCharSheet($index)" ng-repeat="ref in character.charSheets">{{ref.sheetName}}</li>
 									<li>
 										<button ng-click="selectChar($index)" class="brown-button soloButton" type="button">Add sheet</button>
 									</li>

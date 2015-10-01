@@ -8,30 +8,52 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 	// VIEW REF SHEET
 
 	$scope.viewCharSheet = function ($index) {
-		console.log($scope.ref)
 		$scope.userRefs.forEach(function(element){
 			element.active = false
-			console.log($scope.userRefs)
 		})
-		$scope.userRefs[$index].active = true
-
+	$scope.userRefs[$index].active = true
 	}
-
-
 
 	// CHARACTER CREATION
 
-	$scope.characters = [{charName : "Lacey"},{charName : "Mo"},{charName : "Will"},{charName : "Jack"},{charName : "Lucinda"},{charName : "Carmen"}]
+	$scope.characters = [
+		{
+			charName : "Lacey",
+			charSheets : []
+		},
+		{
+			charName : "Mo",
+			charSheets : []
+		},
+			{charName : "Will",
+			charSheets : []
+		},
+		{
+			charName : "Jack",
+			charSheets : []
+		},
+		{
+			charName : "Lucinda",
+			charSheets : []
+		},
+		{
+			charName : "Carmen",
+			charSheets : []
+		}
+			
+			]
 
 	$scope.addChar = function ( ) {
 		if($scope.charName !== undefined ){
 			var Character = function (charName) {
 				this.charName = charName
+				this.charSheets = []
 			}
 			var character = new Character($scope.charName)
 			$scope.characters.push(character)
 		}
 		$scope.charName = undefined
+		console.log($scope.characters)
 	}
 
 	// END CHARACTER CREATION
@@ -53,15 +75,13 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		sheetName : "Probing Questions",
 		fieldsArray : [{question: "Would s/he give his/her life for a stranger?",answer:"blah9"},{question: "What does s/he feel most guilty about from the past?",answer:"blah8"},{question: "What is s/he ashamed of?",answer:"blah00"},{question: "What is his/her opinion of drugs?",answer:"blah0"},{question: "What is a dream s/he longs for but keeps secret?",answer:"blah7"},{question: "Would s/he ever cheat on his/her partner?",answer:"blah6"},{question: "What is the worst thing s/he'd do for money?",answer:"blah4"},{question: "How has s/he been betrayed?",answer:"blah5"},{question: "What is his/her favorite childhood memory?",answer:"blah3"},{question: "What is his/her most awful childhood memory?",answer:"blah2"},{question: "What is his/her best character trait?",answer:"blah1"}],
 		character : "Lacey",
-		active : false,
-		myIndex : 0
+		active : false
 	},
 	{
 		sheetName : "Favorites",
 		fieldsArray : [{question: "food", answer: "thing1"},{question: "color", answer: "thing2"},{question: "restaurant", answer: "thing3"},{question: "movie", answer: "thing4"},{question: "song", answer: "thing5"},{question: "family member", answer: "thing6"},{question: "sport", answer: "thing7"},{question: "item of clothing", answer: "thing8"},{question: "dessert", answer: "thing9"},{question: "season", answer: "thing11"},{question: "animal", answer: "thing111"}],
 		character : "Mo",
-		active : false,
-		myIndex : 1
+		active : false
 	}
 	]
 
@@ -71,24 +91,20 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		
 		var newRef = $scope.refs[$index]
 		newRef.character = $scope.selectedChar
-		newRef.myIndex = $scope.userRefs.length 
-		$scope.userRefs.push(newRef)
-	}
 
-	// var clearRef = function($index){
-	// 	$scope.refs[$index].fieldsArray.forEach(function(element){
-	// 		element.answer = ""
-	// 	})
-	// }
+		$scope.characters.forEach(function(element,index){
+			if(element.charName === $scope.selectedChar){
+				$scope.characters[index].charSheets.push(newRef)
+			}
+		})
+
+		console.log($scope.characters)
+	}
 
 	$scope.saveSheet = function ($index) {
 		createSheet($index)
 		$scope.showSheet = true
 		$scope.showButtons = false
-		console.log("user refs:")
-		console.log($scope.userRefs)
-		console.log("preset refs:")
-		console.log($scope.refs)
 	}
 
 	// END SAVE REF SHEET FOR CHARACTER
@@ -107,7 +123,6 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		$scope.selectedSheet = $scope.refs[$index].sheetName
 		$scope.userRefs.forEach(function(element){
 			element.active = false
-			console.log($scope.userRefs)
 		})
 		return $scope.selectedSheet
 	}
