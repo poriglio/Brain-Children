@@ -22,7 +22,7 @@
 					<h3>Add Character</h3>
 					<form>
 						<input ng-model="charName" type="text" name="name" placeholder="name...">
-						<button class="brown-button soloButton" type="button" ng-click="addChar()">Submit</button>
+						<button class="brown-button soloButton" type="button" ng-click="charSubmit()">Submit</button>
 					</form>
 				</div>
 			</div>
@@ -35,10 +35,10 @@
 				</div>
 				<div class="row centered-text">
 					<div class="display-inline">
-						<ul class="col-xs-6 col-sm-4 col-md-*" ng-repeat="character in characters">
-							<li><h3>{{character.charName}}</h3>
+						<ul class="col-xs-6 col-sm-4 col-md-*" ng-repeat="object in characters">
+							<li><h3>{{object.charName}}</h3>
 								<ul>
-									<li class="inline-link" ng-click="viewCharSheet($index)" ng-repeat="ref in character.charSheets">{{ref.sheetName}}</li>
+									<li class="inline-link" ng-click="viewCharSheet($index)" ng-repeat="ref in object.charSheets">{{ref.sheetName}}</li>
 									<li>
 										<button ng-click="selectChar($index)" class="brown-button soloButton" type="button">Add sheet</button>
 									</li>
