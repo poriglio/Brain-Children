@@ -36,11 +36,11 @@
 				<div class="row centered-text">
 					<div class="display-inline">
 						<ul class="col-xs-6 col-sm-4 col-md-*" ng-repeat="object in characters">
-							<li><h3>{{object.charName}}</h3>
+							<li><h3 ng-click="selectCharacter($index)">{{object.charName}}</h3>
 								<ul>
-									<li class="inline-link" ng-click="viewCharSheet($index)" ng-repeat="ref in object.charSheets">{{ref.sheetName}}</li>
+									<li class="inline-link" ng-click="ref.active = true" ng-repeat="ref in object.charSheets">{{ref.sheetName}}</li>
 									<li>
-										<button ng-click="selectChar($index)" class="brown-button soloButton" type="button">Add sheet</button>
+										<button ng-click="addSheet($index)" class="brown-button soloButton" type="button">Add sheet</button>
 									</li>
 								</ul>
 							</li>
@@ -51,18 +51,18 @@
 
 			<!-- TEMPLATE SELECTION BUTTONS -->
 
-			<div ng-show="showButtons" class="border-box content-box">
+			<div ng-show="templateButtons" class="border-box content-box">
 				<div class="centered-text">
-					<div class="inline-button display-inline" ng-click="selectSheet($index)" ng-repeat="ref in refs">
+					<div class="inline-button display-inline" ng-click="selectTemplate($index)" ng-repeat="ref in templates">
 						<button class="brown-button" type="button">{{ref.sheetName}}</button>
 					</div>
 				</div>
 			
 			<!-- REF SHEET FORM -->
 
-				<form ng-show="ref.active" class="centered-text" ng-repeat="ref in refs">
-					<h2 class="centered-text">{{selectedSheet}} for {{selectedChar}}</h2>
-					<div ng-repeat="field in ref.fieldsArray">
+				<form ng-show="template.active" class="centered-text" ng-repeat="template in templates">
+					<h2 ng-repeat="character in characters" ng-show="character.active" class="centered-text">{{template.sheetName}} for {{character.charName}}</h2>
+					<div ng-repeat="field in template.fieldsArray">
 						<div class="question">{{field.question}}</div>
 						<textarea class="answer" ng-model="field.answer"></textarea>
 					</div>
@@ -72,13 +72,15 @@
 
 			<!-- REF SHEET VIEW -->
 
-			<div ng-show="ref.active" ng-repeat="ref in userRefs" class="border-box content-box">
-				<h2 class="centered-text">{{ref.sheetName}} for {{ref.character}}</h2>
-				<div ng-repeat="field in ref.fieldsArray">
-					<div class="question"><strong>{{field.question}}:</strong></div>
-					<div class="answer">{{field.answer}}</div>
+			<div ng-show="character.active" ng-repeat="character in characters" class="border-box content-box">
+				<div ng-repeat="sheet in character.charSheets">
+					<h2 class="centered-text">{{sheet.sheetName}} for {{character.charName}}</h2>
+					<div ng-repeat="field in sheet.fieldsArray">
+						<div class="question"><strong>{{field.question}}:</strong></div>
+						<div class="answer">{{field.answer}}</div>
+					</div>
+					<button class="brown-button soloButton" type="button">Edit</button>
 				</div>
-				<button class="brown-button soloButton" type="button">Edit</button>
 			</div>
 		</div>
 	</body>

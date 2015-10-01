@@ -8,72 +8,39 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 		addChar( )
 	}
 
-	// VIEW SAVED CHAR SHEET
+	// VIEW SAVED CHAR SHEETs
 
-	$scope.viewCharSheet = function ($index) {
+	$scope.selectCharacter= function ($index) {
 
-		console.log($index)
-
+		deactivateChars()
+		$scope.characters[$index].active = true
 
 	}
 
-	// END VIEW SAVED CHAR SHEET
 
-	// SAVE REF SHEET FOR CHARACTER
+	// ADD NEW CHAR SHEET
 
-	var Ref = function (sheetName,fieldsArray,character){
-		this.sheetName = sheetName
-		this.fieldsArray = fieldsArray
-		this.character = character
-		this.active = false
-		$scope.refs.push(this)
+	$scope.addSheet = function ($index) {
+
+		deactivateChars()
+		$scope.templateButtons = true
+		$scope.characters[$index].active = true
 	}
 
-	var createSheet = function($index){
-		
-		var newRef = $scope.refs[$index]
-
-		$scope.characters.forEach(function(element,index){
-			if(element.charName === $scope.selectedChar){
-				$scope.characters[index].charSheets.push(newRef)
-			}
-		})
+	$scope.selectTemplate = function($index){
+		deactivateTemplates()
+		$scope.templates[$index].active = true
 	}
 
-	$scope.saveSheet = function ($index) {
-		createSheet($index)
-		$scope.showSheet = true
-		$scope.showButtons = false
+	// SAVE CHARACTER SHEET
+
+	$scope.saveSheet = function($index){
+		var newSheet = $scope.templates[$index]
+		$scope.characters[findCharacterIndex()].charSheets.push(newSheet)
+		deactivateTemplates()
+		deactivateChars()
+		console.log($scope.characters)
 	}
-
-	// END SAVE REF SHEET FOR CHARACTER
-
-	// REF SHEET TEMPLATE SELECTION
-
-	$scope.selectSheet = function ($index){
-
-		$scope.refs.forEach(function(element){
-			element.active=false;
-		})
-		$scope.refs[$index].active = true;
-		$scope.selectedSheet = $scope.refs[$index].sheetName
-		return $scope.selectedSheet
-	}
-
-	$scope.selectChar = function ($index){
-		$scope.refs.forEach(function(element){
-			element.active=false;
-		})
-		$scope.selectedChar = $scope.characters[$index].charName
-		$scope.showButtons = true
-		$scope.showSheet = false
-		return $scope.selectedChar
-	}
-
-	// END REF SHEET TEMPLATE SELECTION
-
-
-
 
 	// -=-=-=-=-=-=-=-=-=--=-=-=-=-=--=-=
 	// IGNORE EVERYTHING BELOW THIS LINE
@@ -82,17 +49,40 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 	// FUNCTIONS
 
+	var findCharacterIndex = function(){
+
+		var charIndex = ""
+		$scope.characters.forEach(function(element,index){
+			if(element.active === true){
+				charIndex = index
+			}
+		})
+		return charIndex
+	}
+
 	addChar = function ( ) {
 		if($scope.charName !== undefined ){
 			var Character = function (charName) {
 				this.charName = charName
 				this.charSheets = []
+				this.active = false
 			}
 			var character = new Character($scope.charName)
 			$scope.characters.push(character)
 		}
 		$scope.charName = undefined
-		console.log($scope.characters)
+	}
+
+	var deactivateChars = function () {
+		$scope.characters.forEach(function(element){
+			element.active = false
+		})
+	}
+
+	var deactivateTemplates = function (){
+		$scope.templates.forEach(function(element){
+			element.active = false
+		})
 	}
 
 	// PRESET CHARACTERS
@@ -101,39 +91,45 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 		{
 			charName : "Lacey",
-			charSheets : []
+			charSheets : [],
+			active: false
 		},
 		{
 			charName : "Mo",
-			charSheets : []
+			charSheets : [],
+			active: false
 		},
 			{charName : "Will",
-			charSheets : []
+			charSheets : [],
+			active: false
 		},
 		{
 			charName : "Jack",
-			charSheets : []
+			charSheets : [],
+			active: false
 		},
 		{
 			charName : "Lucinda",
-			charSheets : []
+			charSheets : [],
+			active: false
 		},
 		{
 			charName : "Carmen",
-			charSheets : []
+			charSheets : [],
+			active: false
 		}
 			
 			]
 
 	// PRESET REF SHEETS
 
-	$scope.refs = []
+	$scope.templates = []
 
 	var Ref = function (sheetName,fieldsArray){
 		this.sheetName = sheetName
 		this.fieldsArray = fieldsArray
 		this.active = false
-		$scope.refs.push(this)
+		$scope.templates.push(this)
 	}
 
 	var ref1 = new Ref("Basic Info",[{question: "Gender"},{question: "Orientation"},{question: "Species"},{question: "Breed"},{question: "Hobbies"},{question: "Enneagram Type"},{question: "Job"},{question: "Car"},{question: "Location"},{question: "Birthday"},{question: "Birthplace"}])

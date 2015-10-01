@@ -141,6 +141,10 @@ USE ANYWHERE
 	display: inline-block;
 }
 
+.hidden{
+	display: none;
+}
+
 /*-=-=-=-=-=-=-
 MEDIA QUERIES
 -=-=-=-=-=-=-*/
