@@ -37,6 +37,7 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 
 	$scope.saveSheet = function($index){
 		var newSheet = $scope.templates[$index]
+		$scope.templateButtons = false
 		$scope.characters[findCharacterIndex()].charSheets.push(newSheet)
 		deactivateTemplates()
 		deactivateChars()
@@ -140,4 +141,5 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 	var ref4 = new Ref("Romantic Past, Present, and Future",[{question: "sexual orientation"},{question: "current crush"},{question: "first lover"},{question: "first crush"},{question: "monogamy versus polyamory?"},{question: "celebrity crush"},{question: "first kiss"},{question: "marriage?"},{question: "children?"},{question: "the one that got away"},{question: "worst breakup"}])
 	var ref5 = new Ref("Probing Questions",[{question: "Would s/he give his/her life for a stranger?"},{question: "What does s/he feel most guilty about from the past?"},{question: "What is s/he ashamed of?"},{question: "What is his/her opinion of drugs?"},{question: "What is a dream s/he longs for but keeps secret?"},{question: "Would s/he ever cheat on his/her partner?"},{question: "What is the worst thing s/he'd do for money?"},{question: "How has s/he been betrayed?"},{question: "What is his/her favorite childhood memory?"},{question: "What is his/her most awful childhood memory?"},{question: "What is his/her best character trait?"}])
 	var ref6 = new Ref("Favorites",[{question: "food"},{question: "color"},{question: "restaurant"},{question: "movie"},{question: "song"},{question: "family member"},{question: "sport"},{question: "item of clothing"},{question: "dessert"},{question: "season"},{question: "animal"}])
+	var ref7 = new Ref("Coder Profile",[{question: "former career"},{question:"dream job"},{question:"favorite framework"},{question:"favorite snack"},{question:"most hated browser"},{question:"favorite CSS color"},{question:"front-end or back-end?"},{question:"favorite website"},{question:"favorite beer"},{question:"favorite coffee shop"},{question:"catch phrase"}])
 }])
