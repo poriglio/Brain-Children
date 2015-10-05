@@ -36,13 +36,20 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 	// SAVE CHARACTER SHEET
 
 	$scope.saveSheet = function($index){
-		var newSheet = $scope.templates[$index]
+		var newSheet = angular.copy($scope.templates[$index])
 		$scope.templateButtons = false
 		$scope.characters[findCharacterIndex()].charSheets.push(newSheet)
 		deactivateTemplates()
 		deactivateChars()
 		$scope.templateButtons = true
-		console.log($scope.characters)
+		console.log($scope.templates[$index])
+		$scope.clearForm($index)
+	}
+
+	$scope.clearForm = function($index){
+		for(var x = 0; x<$scope.templates[$index].fieldsArray.length;x++){
+			$scope.templates[$index].fieldsArray[x].answer = ""
+		}
 	}
 
 	// -=-=-=-=-=-=-=-=-=--=-=-=-=-=--=-=
