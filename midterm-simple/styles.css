@@ -20,24 +20,52 @@ body{
 .content-container {
 	min-height: 100vh;
 	max-width: 800px;
+	position: relative;
+	top: 7rem;
 }
 
 .border-box{
-	border: 6px ridge rgb(96,47,39);
 	padding: 1rem;
-	margin-top: 2rem;
-	margin-bottom: 2rem;
 }
 
 .content-box{
 	background-color: rgba(144,84,45,0.65);
 }
 
+/*-=-=-=-=-=-=
+HEADING BOX
+-=-=-=-=-=-=*/
+
 .heading-box{
 	background-image: url("bookshelfbrown.jpg");
-	padding-bottom: 2rem;
-	padding-top: 2rem;
+	padding: 1rem;
+	width: 100%;
+	z-index: 10;
+	height: 8rem;
+	position: fixed;
+	line-height: 8rem;
 }
+
+.heading-box>*{
+	line-height: initial;
+}
+
+h1{
+	display: inline-block;
+	font-size: 3.5rem;
+	margin-top: 0px;
+	vertical-align: center;
+}
+
+.add-char{
+	vertical-align: top;
+	display: inline-block;
+	float: right;
+}
+
+/*-=-=-=-=-=-=-
+HEADING BOX END
+-=-=-=-=-=-=-=*/
 
 h1,h2,h3{
 	font-family: 'Tangerine', cursive;
@@ -45,9 +73,6 @@ h1,h2,h3{
 	text-shadow: 2px 2px rgba(40,40,40,0.6);
 }
 
-h1{
-	font-size: 3.5rem;
-}
 
 h2{
 	padding-bottom: 2rem;
@@ -56,6 +81,7 @@ h2{
 }
 
 h3{
+	display: inline-block;
 	font-size: 1.75rem;	
 }
 

@@ -56,6 +56,9 @@ angular.module("characterApp").controller("characterController",["$scope",functi
 	// IGNORE EVERYTHING BELOW THIS LINE
 	// -=-=-=-=-=-=-=-=-=--=-=-=-=-=--=-=
 
+	// HIDES / SHOWS
+
+
 
 	// FUNCTIONS
 
