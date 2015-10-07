@@ -1,6 +1,6 @@
 angular.module("characterApp", [])
 
-angular.module("characterApp").controller("characterController",["$scope",function($scope){
+angular.module("characterApp").controller("characterController",["$scope","characterFactory", function($scope,characterFactory){
 
 	// SUBMIT NEW CHARACTER
 
