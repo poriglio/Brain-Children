@@ -1,260 +1,89 @@
 <!DOCTYPE html>
 <html ng-app="characterApp">
 	<head>
-		<title>Person Maker - Userpage</title>
+		<title>Brain Children</title>
 		<meta charset="utf-8">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-animate.js"></script>
 		<script src="script.js"></script>
+		<script src="factory.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="styles.css">
 	</head>
 	<body ng-controller="characterController">
-		<header class="border">
-			<h1>Person Maker</h1>
-			<form>
-				Username:
-				<input ng-model="loginUsername" type="text" name="username">
-				Password:
-				<input ng-model="loginPassword" type="text" name="password">
-				<button ng-click="login()" type="button">Log In</button>
-			</form>
-			<button ng-click="getStarted()" type="button">Register</button>
-			<button ng-click="logout()" type="button">Log Out</button>
-		</header>
-		<nav class="border">
-			<button type="button">FAQ</button>
-			<button type="button">About</button>
-		</nav>
 
-		<!-- INTRO -->
+	<!-- HEADING BOX -->
 
-		<div class="border" ng-hide="introHide">
-			<h1>Welcome to Person Maker!</h1>
-			<div>
-				If you're a writer, roleplayer, or commissioner, you're in the right place! Person Maker is a place to create textual reference sheets for your characters so you have a way to keep track of their details as you write, easily share their information with fellow roleplayers, and give readable, organized info to the artists and writers you commission. Person Maker makes the creative process easy and organized for everyone involed.
-			</div>
-			<ul>
-				<li>use preset templates or create your own from scratch</li>
-				<li>learn more about your characters</li>
-				<li>organize your characters into worlds</li>
-				<li>easily add and remove information fields to your ref sheets</li>
-			</ul>
-			<button ng-click="getStarted()" type="button">
-				Get started!
-			</button>
-		</div>
-
-		<!-- REGISTER -->
-
-		<form ng-show="registerShow" class="border" id="startForm">
-			<h1>Register</h1>
-			<table>
-				<tr>
-					<td>Username:</td>
-					<td>
-						<input ng-model="newUsername" name="userName" placeholder="Username...">
-					</td>
-				</tr>
-				<tr>
-					<td>Password:</td>
-					<td>
-						<input ng-model="newPassword" name="password" placeholder="Password...">
-					</td>
-				</tr>
-				<tr>
-					<td>Each of your characters must live in a world! A world can be a story or novel you're writing; a location; or a fandom such as Star Wars, Steven Universe, Friendship is Magic, etc.</td>
-					<td>
-						<input ng-model="worldName" name="worldName" placeholder="World name...">
-					</td>
-				</tr>
-				<tr>
-					<td>Tell us about your world!</td>
-					<td>
-						<textarea ng-model="worldInfo" name="worldDescription" form="startForm" placeholder="World description..."></textarea>
-					</td>
-				</tr>
-				<button ng-click="newUser()" type="button">Register!</button>
-			</table>
-		</form>
-
-		<div class="border" ng-show="loginPromptShow">
-			Great! You're ready to create! Just to be safe, enter your login information again at the top of the screen.
-		</div>
-
-		<!-- VIEW USER'S CREATIONS -->
-
-		<div class="border" ng-show="userShow">
-			<h1>Username's Creations</h1>
-			<button ng-click="newWorld()" type="button">Create new world...</button>
-			<button type="buton" ng-click="newTemplate()">Create new template...</button>
-			<ul>
-				<li ng-repeat="world in worlds">
-					{{world.worldName}} : {{world.worldInfo}}
-					<ul>
-						<li ng-repeat="character in characters | filterbyworld : world.worldName">
-							<button type="button" ng-click="viewCharacter()">{{character.characterName}}
-							</button>
-							{{character.characterInfo}}
-						</li>
-						<li>
-							<button ng-click="newCharacter(world)" type="button">Create character...</button>
-						</li>
-					</ul>
-				</li>
-				<li>
-					Templates
-					<ul>
-						<li ng-repeat="template in userTemplates"><button type="button">{{template.sheetName}}</button>{{template.sheetInfo}}</li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-
-
-		<!-- CREATE NEW CHARACTER -->
-
-		<div class="border" ng-show="createCharShow">
-			<button type="button" ng-click="close()">X</button>
-			<h1>Create New Character</h1>
-			<form>
-				Character Name: <input ng-model="characterName" placeholder="Name..." type="text">
-				Character Description: <textarea ng-model="characterInfo" placeholder="Character description..."></textarea>
-<!-- 				Character World:
-				<ul>
-					<li>
-						World Name <input type="radio" name="world">
-					</li>
-					<li>
-						World Name <input type="radio" name="world">
-					</li>
-					<li>
-						World Name <input type="radio" name="world">
-					</li>
-				</ul> -->
-				<button ng-click="submitCharacter()" type="button">Create character!</button>
-			</form>
-		</div>
-
-		<!-- INFO ABOUT CURRENTLY LOADED CHARACTER -->
-
-		<div class="border" ng-show="characterShow">
-			<button type="button" ng-click="close()">X</button>
-			<h1>Character Name</h1>
-			<img ng-src="{{}}" alt="image of character">
-			<ul>
-				<li>
-					<button type="button" ng-click="openCharSheet()">Link to Character Sheet</button>
-				</li>
-				<li>
-					<button type="button" ng-click="createSheet()">Add new character sheet</button>
-				</li>
-			</ul>
-		</div>
-
-		<!-- INFO ABOUT CURRENTLY LOADED SHEET -->
-
-		<div class="border" ng-show="sheetShow">
-			<button type="button" ng-click="closeInnerForm()">X</button>
-			<h1>Sheet Name</h1>
-			<div>Sheet description goes here. This tells about the ref sheet template you used, not about the character.</div>
-		</div>
-
-		<!-- VIEW CHARACTER SHEET -->
-
-		<div ng-show="sheetShow" class="border" name="viewCharSheet">
-			<button type="button" ng-click="closeInnerForm()">X</button>
-			<h1>View Character Sheet</h1>
-			<button type="button">Edit sheet...</button>
-			<div class="border">
-				<div>FieldName</div>
-				<div>FieldDescription</div>
-			</div>
-		</div>
-
-		<!-- EDIT CHARACTER SHEET -->
-
-		<div ng-show="editSheetShow" class="border" name="editCharSheet">
-			<button type="button" ng-click="close()">X</button>
-			<h1>Edit Character Sheet</h1>	
-			<button type="button">Save as New Template</button>
-			<button type="button">Save as Character Sheet</button>
-			<button type="button">Save both</button>
-			<form class="border">
-				<div>
-					<input type="text" placeholder="Enter field name...">
-					<textarea ng-class="" placeholder="Enter field content..."></textarea>
-					<button type="button">Remove field</button>
-					<button type="button">Add field</button>
-					<button type="button">Edit field size</button>
-				</div>
-			</form>
-		</div>
-
-		<!-- CREATE NEW TEMPLATE -->
-		
-		<div ng-show="createTemplateShow" class="border">
-			<button type="button" ng-click="close()">X</button>
-			<h1>Create New Template</h1>
-			<form>
-				Sheet name:<input ng-model="sheetName" type="text" placeholder="sheet name...">
-				Sheet description:<textarea ng-model="sheetInfo" placeholder="sheet description..."></textarea>
-				Number of fields to start:<input ng-model="numberFields" type="text" placeholder="number of fields to start...">
-				<button ng-click="submitTemplate()" type="button">Create template!</button>
-				<div class="border" ng-show="showNewTemplateFields" ng-repeat="object in userTemplates">
-					<div ng-repeat="field in object.fieldsArray">
-						{{field.question}}<input type="text" placeholder="fieldName">
-						<textarea placeholder="fieldContent">{{field.answer}}</textarea>
-					</div>
-				</div>
-			</form>
-		</div>
-
-		<!-- CREATE NEW WORLD -->
-
-		<div ng-show="createWorldShow" class="border">
-			<form>
-				<button type="button" ng-click="close()">X</button>
-				<h1>Create World</h1>
-				<tr>
-					<td>Each of your characters must live in a world! A world can be a story or novel you're writing; a location; or a fandom such as Star Wars, Steven Universe, Friendship is Magic, etc.</td>
-					<td>
-						<input ng-model="worldName" name="worldName" placeholder="World name...">
-					</td>
-				</tr>
-				<tr>
-					<td>Tell us about your world!</td>
-					<td>
-						<textarea ng-model="worldInfo" name="worldDescription" form="startForm" placeholder="World description..."></textarea>
-					</td>
-				</tr>
-				<button ng-click="submitWorld()" type="button">Create World!</button>
-			</form>
-		</div>
-
-		<!-- ADD NEW CHARACTER SHEET -->
-
-		<div class="border" ng-show="createSheetShow">
-			<button type="button" ng-click="closeInnerForm()">X</button>
-			<h1>Add new sheet for character</h1>
-			<button type="button">Use Preset Sheet...</button>
-			<ul>
-				<button type="button">Preset 1</button>
-				<button type="button">Preset 2</button>
-				<button type="button">Preset 3</button>
-			</ul>
-			<button type="button">Use Custom Sheet...</button>
-						<ul>
-				<button type="button">Custom 1</button>
-				<button type="button">Custom 2</button>
-				<button type="button">Custom 3</button>
-			</ul>
-			<div>
-				<h1>Name of Sheet</h1>
+		<div class="heading-box">
+			<h1>Brain Children</h1>
+			<div class="add-char">
+			<!-- ADD CHARACTER FORM -->
 				<form>
-					Fieldname:
-					<textarea placeholder="..."></textarea>
+					<h3>Add Character...</h3>
+					<input ng-model="charName" type="text" name="name" placeholder="name...">
+					<button class="brown-button soloButton" type="button" ng-click="charSubmit()">Submit</button>
 				</form>
 			</div>
-			<button ng-click="submitSheet()" type="button">Create sheet!</button>
+		</div>
+
+		<div class="content-container container">
+			
+
+			<!-- LIST OF CHARACTERS -->
+
+			<div class="border-box content-box">
+				<div>
+					<h2 class="centered-text">My Characters</h2>
+				</div>
+				<div class="row centered-text">
+					<div class="display-inline">
+						<ul class="col-xs-6 col-sm-4 col-md-*" ng-repeat="object in characters">
+							<li><h3 class="inline-link" ng-click="selectCharacter($index)">{{object.charName}}</h3>
+								<ul>
+									<li ng-click="ref.active = true" ng-repeat="ref in object.charSheets">{{ref.sheetName}}</li>
+									<li>
+										<button ng-click="addSheet($index)" class="brown-button soloButton" type="button">Add sheet</button>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!-- TEMPLATE SELECTION BUTTONS -->
+
+			<div ng-show="templateButtons" class="border-box content-box buttons-appear">
+				<div class="centered-text">
+					<div class="inline-button display-inline" ng-click="selectTemplate($index)" ng-repeat="ref in templates">
+						<button class="brown-button" type="button">{{ref.sheetName}}</button>
+					</div>
+				</div>
+			
+			<!-- REF SHEET FORM -->
+
+				<form ng-show="template.active" class="centered-text" ng-repeat="template in templates">
+					<h2 ng-repeat="character in characters" ng-show="character.active" class="centered-text">{{template.sheetName}} for {{character.charName}}</h2>
+					<div ng-repeat="field in template.fieldsArray">
+						<div class="question">{{field.question}}</div>
+						<textarea class="answer" ng-model="field.answer"></textarea>
+					</div>
+					<button ng-click="saveSheet($index)" class="brown-button soloButton" type="button">Save</button>
+				</form>
+			</div>
+
+			<!-- REF SHEET VIEW -->
+
+			<div ng-show="character.active" ng-repeat="character in characters" class="border-box content-box">
+				<div ng-repeat="sheet in character.charSheets">
+					<h2 class="centered-text">{{sheet.sheetName}} for {{character.charName}}</h2>
+					<div ng-repeat="field in sheet.fieldsArray">
+						<div class="question"><strong>{{field.question}}:</strong></div>
+						<div class="answer">{{field.answer}}</div>
+					</div>
+					<button class="brown-button soloButton" type="button">Edit</button>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
