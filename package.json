@@ -1,0 +1,23 @@
+{
+  "name": "brainchildren",
+  "version": "1.0.0",
+  "description": "App for storing information about fictional characters.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poriglio/midterm.git"
+  },
+  "author": "Paula Origlio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/poriglio/midterm/issues"
+  },
+  "homepage": "https://github.com/poriglio/midterm#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3"
+  }
+}

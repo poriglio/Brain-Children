@@ -1,0 +1,40 @@
+body{
+    background-image: url("../images/books.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+	color: rgb(100,50,75));
+	font-family: "Lato","Helvetica",sans-serif;
+}
+
+
+.body-box{
+	background-color: brown;
+	color: white;
+	max-width: 800px;
+	margin: auto;
+}
+
+.heading-box{
+	line-height: 120px;
+}
+
+h1{
+	background-image: url("../images/bookshelfbrown.jpg");
+	background-attachment: fixed;
+	color: rgb(255,230,240);
+	height: 120px;
+	width: 100%;
+	font-size: 3rem;
+	text-align: center;
+	vertical-align: center;
+}
+
+.content-box{
+	padding: 1rem;
+	margin: 1rem;
+	background-color: rgb(100,50,70);
+	width: 80%;
+	margin: auto;
+	margin-top: 1rem;
+	margin-botton: 1rem;
+}
